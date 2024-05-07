@@ -7,6 +7,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -31,11 +35,9 @@ jobs:
         submodules: recursive
 
     - name: Configure CMake
-      shell: bash
       run: cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -B build
 
     - name: Build
-      shell: bash
       run: cmake --build build --config $BUILD_TYPE
 
     - name: Upload
@@ -53,8 +55,8 @@ jobs:
       contents: write
 
     steps:
-    - name: Checkout to fetch tag annotation
-      uses: actions/checkout@v4
+    - name: Install jq for JSON parsing
+      run: sudo apt-get install -y jq
 
     - name: Download binaries
       uses: actions/download-artifact@v4
@@ -67,7 +69,9 @@ jobs:
       run: ls -lR dist/
 
     - name: Extract release notes
-      run: git cat-file tag ${{ github.ref }} | tail -n +3 > changelog.md
+      run: |
+        tag_url=$(curl https://api.github.com/repos/${{ github.repository }}/git/${{ github.ref }} | jq -r '.object.url')
+        curl $tag_url | jq -r '.message' | tail -n +3 | tee changelog.md
 
     - name: Attach binaries to release
       uses: softprops/action-gh-release@v2
