@@ -55,9 +55,6 @@ jobs:
       contents: write
 
     steps:
-    - name: Install jq for JSON parsing
-      run: sudo apt-get install -y jq
-
     - name: Download binaries
       uses: actions/download-artifact@v4
       with:
