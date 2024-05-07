@@ -2,6 +2,8 @@
 
 [![Build Status](https://github.com/mttbernardini/frequalizer/actions/workflows/build.yml/badge.svg)](https://github.com/mttbernardini/frequalizer/actions/workflows/build.yml/badge.svg)
 
+![Frequalizer Screenshot](docs/freq_demo.jpg)
+
 This project provides a 6-band Parametric Equalizer built using [JUCE](https://github.com/juce-framework/JUCE) and the `juce::dps` module.
 
 The code is based on the work of [Foley Finest](https://github.com/ffAudio/Frequalizer) and has been forked in order to continue development for my personal needs, since, at the time of writing, the original project is unmaintaned since 2022.
