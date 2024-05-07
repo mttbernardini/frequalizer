@@ -15,12 +15,11 @@ endif()
 
 # add the plugin targets
 juce_add_plugin(frequalizer
-	COMPANY_NAME "foleysfinest"
+	COMPANY_NAME "teobe"
 	PLUGIN_MANUFACTURER_CODE "TEOB"
 	PLUGIN_CODE "FqOS"
 	FORMATS ${FORMATS}
 	VST3_CATEGORIES "Fx" "Analyzer" "EQ"
-	AAX_CATEGORY "AAX_ePlugInCategory_EQ"
 	AU_MAIN_TYPE "kAudioUnitType_Effect"
 	COMPANY_WEBSITE "https://teobe.net"
 	COMPANY_EMAIL "info@teobe.net"
