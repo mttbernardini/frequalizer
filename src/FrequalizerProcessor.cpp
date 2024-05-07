@@ -108,7 +108,7 @@ static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout
                                                                     defaults [i].quality,
                                                                     juce::String(),
                                                                     juce::AudioProcessorParameter::genericParameter,
-                                                                    [](float value, int) { return juce::String (value, 1); },
+                                                                    [](float value, int) { return juce::String (value, 2); },
                                                                     [](const juce::String& text) { return text.getFloatValue(); });
 
         auto gainParameter = std::make_unique<juce::AudioParameterFloat> (FrequalizerAudioProcessor::getGainParamName (i),
