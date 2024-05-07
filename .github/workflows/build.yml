@@ -19,6 +19,12 @@ jobs:
       BUILD_TYPE: RelWithDebInfo
 
     steps:
+    - name: Configure Xcode
+      if: runner.os == 'MacOS'
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+
     - name: Checkout
       uses: actions/checkout@v2
       with:
