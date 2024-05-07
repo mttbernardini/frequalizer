@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13.0)
-project(frequalizer VERSION 1.1.0)
+project(frequalizer VERSION 2.0.0)
 
 add_subdirectory(lib/JUCE)
 
