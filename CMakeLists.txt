@@ -60,13 +60,11 @@ set_target_properties(frequalizer
 )
 
 # setup the copying to the output folder
-set(COPY_FOLDER ${CMAKE_SOURCE_DIR}/dist)
-
-foreach(FORMAT ${FORMATS})
-	get_target_property(ARTEFACTS_DIR frequalizer_${FORMAT} LIBRARY_OUTPUT_DIRECTORY)
-	add_custom_command(TARGET frequalizer_${FORMAT} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${ARTEFACTS_DIR} ${COPY_FOLDER})
-endforeach()
-
-if(INSTALL_AFTER_BUILD)
-	juce_enable_copy_plugin_step(frequalizer)
+if(NOT INSTALL_AFTER_BUILD)
+	message("Installing to dist/")
+	foreach(FORMAT ${FORMATS})
+		set_target_properties(frequalizer_${FORMAT} PROPERTIES JUCE_PLUGIN_COPY_DIR ${CMAKE_SOURCE_DIR}/dist)
+	endforeach()
 endif()
+
+juce_enable_copy_plugin_step(frequalizer)
