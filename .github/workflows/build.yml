@@ -2,13 +2,16 @@ name: Build
 
 on:
   push:
-    tags:
-      - 'v*'
+    tags: [ "v*" ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: ${{ startsWith(github.ref, 'refs/tags/') }}
       matrix:
         os: [macos-latest, windows-latest]
 
