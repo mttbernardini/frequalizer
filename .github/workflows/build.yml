@@ -40,7 +40,7 @@ jobs:
     - name: Build
       run: cmake --build build --config $BUILD_TYPE
 
-    - name: Upload
+    - name: Upload built plug-ins
       uses: actions/upload-artifact@v4
       with:
         path: dist/
@@ -55,25 +55,27 @@ jobs:
       contents: write
 
     steps:
-    - name: Download binaries
+    - name: Download built plug-ins
       uses: actions/download-artifact@v4
       with:
         pattern: built-plugins-*
         merge-multiple: true
-        path: dist/
+        path: plugin/
 
-    - name: Inspect binaries
-      run: ls -lR dist/
+    - name: Zip plug-ins
+      working-directory: plugin/
+      run: |
+        mkdir ../dist
+        ls -lR .
+        for p in *; do zip -r ../dist/$p.zip $p; done
 
     - name: Extract release notes
       run: |
         tag_url=$(curl https://api.github.com/repos/${{ github.repository }}/git/${{ github.ref }} | jq -r '.object.url')
         curl $tag_url | jq -r '.message' | tail -n +3 | tee changelog.md
 
-    - name: Attach binaries to release
+    - name: Attach zipped plug-ins to release
       uses: softprops/action-gh-release@v2
       with:
         body_path: changelog.md
         files: dist/*
-
-
