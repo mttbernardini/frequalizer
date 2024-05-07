@@ -4,15 +4,6 @@ add_subdirectory(External/JUCE)
 
 # check which formats we want to build
 set(FORMATS "VST3")
-if (AAX_PATH)
-    list(APPEND FORMATS "AAX")
-    juce_set_aax_sdk_path(${AAX_PATH})
-endif()
-
-if (VST2_PATH)
-    list(APPEND FORMATS "VST2")
-    juce_set_vst2_sdk_path(${VST2_PATH})
-endif()
 
 if (APPLE)
     list(APPEND FORMATS "AU")
@@ -20,38 +11,44 @@ endif()
 
 # add the plugin targets
 juce_add_plugin(frequalizer
-                VERSION "1.1.0"
-                COMPANY_NAME "foleysfinest"
-                PLUGIN_MANUFACTURER_CODE "FFAU"
-                PLUGIN_CODE "FqOS"
-                FORMATS ${FORMATS}
-                VST3_CATEGORIES "Fx" "Analyzer" "EQ"
-                AAX_CATEGORY "AAX_ePlugInCategory_EQ"
-                AU_MAIN_TYPE "kAudioUnitType_Effect"
-                COMPANY_WEBSITE "https://foleysfinest.com"
-                COMPANY_EMAIL "info@foleysfinest.com"
-                BUNDLE_ID "com.foleysfinest.frequalizer"
-                PLUGIN_NAME "Frequalizer Free"
-                PRODUCT_NAME "Frequalizer")
+	COMPANY_NAME "foleysfinest"
+	PLUGIN_MANUFACTURER_CODE "TEOB"
+	PLUGIN_CODE "FqOS"
+	FORMATS ${FORMATS}
+	VST3_CATEGORIES "Fx" "Analyzer" "EQ"
+	AAX_CATEGORY "AAX_ePlugInCategory_EQ"
+	AU_MAIN_TYPE "kAudioUnitType_Effect"
+	COMPANY_WEBSITE "https://teobe.net"
+	COMPANY_EMAIL "info@teobe.net"
+	BUNDLE_ID "net.teobe.frequalizer"
+	PLUGIN_NAME "Frequalizer"
+	PRODUCT_NAME "Frequalizer"
+)
 
 # add the sources
 add_subdirectory(Resources)
 add_subdirectory(Source)
 
 # add required flags
-target_link_libraries(frequalizer PRIVATE juce::juce_recommended_warning_flags juce::juce_recommended_config_flags juce::juce_recommended_lto_flags)
-target_link_libraries(frequalizer PRIVATE juce::juce_opengl juce::juce_dsp juce::juce_audio_utils)
-target_compile_definitions(frequalizer 
-    PUBLIC 
-    JUCE_VST3_CAN_REPLACE_VST2=0
-    JUCE_WEB_BROWSER=0)
+target_link_libraries(frequalizer
+	PRIVATE
+		# compiler flags
+		juce::juce_recommended_warning_flags
+		juce::juce_recommended_config_flags
+		juce::juce_recommended_lto_flags
+		# juce modules
+		juce::juce_opengl
+		juce::juce_dsp
+		juce::juce_audio_utils
+)
+target_compile_definitions(frequalizer
+	PUBLIC
+		JUCE_VST3_CAN_REPLACE_VST2=OFF
+		JUCE_WEB_BROWSER=OFF
+	)
 
 # setup the copying to the output folder
-if (APPLE)
-    set(COPY_FOLDER ${CMAKE_SOURCE_DIR}/Builds/MacOSX)
-elseif(WIN32)
-    set(COPY_FOLDER ${CMAKE_SOURCE_DIR}/Builds/VisualStudio2015)
-endif()
+set(COPY_FOLDER ${CMAKE_SOURCE_DIR}/dist)
 
 foreach(FORMAT ${FORMATS})
     get_target_property(ARTEFACTS_DIR frequalizer_${FORMAT} LIBRARY_OUTPUT_DIRECTORY)
