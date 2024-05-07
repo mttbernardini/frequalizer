@@ -3,6 +3,9 @@ project(frequalizer VERSION 1.1.0)
 
 add_subdirectory(lib/JUCE)
 
+# useful for linting (i.e. `clangd`)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # check which formats we want to build
 set(FORMATS "VST3")
 
@@ -52,7 +55,7 @@ target_compile_definitions(frequalizer
 )
 set_target_properties(frequalizer
 	PROPERTIES
-		CXX_STANDARD 11
+		CXX_STANDARD 17
 )
 
 # setup the copying to the output folder
