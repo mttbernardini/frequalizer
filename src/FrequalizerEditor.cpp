@@ -6,8 +6,6 @@
   ==============================================================================
 */
 
-#include "Analyser.h"
-#include "FrequalizerProcessor.h"
 #include "FrequalizerEditor.h"
 
 static int   clickRadius = 4;

@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include "FrequalizerProcessor.h"
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_opengl/juce_opengl.h>
+#include "FrequalizerProcessor.h"
 
 
 //==============================================================================

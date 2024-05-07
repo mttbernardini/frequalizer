@@ -6,7 +6,6 @@
   ==============================================================================
 */
 
-#include "Analyser.h"
 #include "FrequalizerProcessor.h"
 #include "FrequalizerEditor.h"
 
@@ -49,7 +48,7 @@ int FrequalizerAudioProcessor::getBandIndexFromID (juce::String paramID)
     return -1;
 }
 
-std::vector<FrequalizerAudioProcessor::Band> createDefaultBands()
+static std::vector<FrequalizerAudioProcessor::Band> createDefaultBands()
 {
     std::vector<FrequalizerAudioProcessor::Band> defaults;
     defaults.push_back (FrequalizerAudioProcessor::Band (TRANS ("Lowest"),    juce::Colours::blue,   FrequalizerAudioProcessor::HighPass,    20.0f, 0.707f));
@@ -61,7 +60,7 @@ std::vector<FrequalizerAudioProcessor::Band> createDefaultBands()
     return defaults;
 }
 
-juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
+static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
 {
     std::vector<std::unique_ptr<juce::AudioProcessorParameterGroup>> params;
 
