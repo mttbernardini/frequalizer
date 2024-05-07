@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.13.0)
 project(frequalizer VERSION 1.1.0)
-add_subdirectory(External/JUCE)
+
+add_subdirectory(lib/JUCE)
 
 # check which formats we want to build
 set(FORMATS "VST3")
