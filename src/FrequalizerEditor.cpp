@@ -8,7 +8,6 @@
 
 #include "Analyser.h"
 #include "FrequalizerProcessor.h"
-#include "SocialButtons.h"
 #include "FrequalizerEditor.h"
 
 static int   clickRadius = 4;
@@ -19,8 +18,6 @@ FrequalizerAudioProcessorEditor::FrequalizerAudioProcessorEditor (FrequalizerAud
   : juce::AudioProcessorEditor (&p), freqProcessor (p)
 {
     tooltipWindow->setMillisecondsBeforeTipAppears (1000);
-
-    addAndMakeVisible (socialButtons);
 
     for (size_t i=0; i < freqProcessor.getNumBands(); ++i) {
         auto* bandEditor = bandEditors.add (new BandEditor (i, freqProcessor));
@@ -69,9 +66,6 @@ void FrequalizerAudioProcessorEditor::paint (juce::Graphics& g)
     juce::Graphics::ScopedSaveState state (g);
 
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
-
-    auto logo = juce::ImageCache::getFromMemory (FFAudioData::LogoFF_png, FFAudioData::LogoFF_pngSize);
-    g.drawImage (logo, brandingFrame.toFloat(), juce::RectanglePlacement (juce::RectanglePlacement::fillDestination));
 
     g.setFont (12.0f);
     g.setColour (juce::Colours::silver);
@@ -131,8 +125,6 @@ void FrequalizerAudioProcessorEditor::resized()
 {
     freqProcessor.setSavedSize ({ getWidth(), getHeight() });
     plotFrame = getLocalBounds().reduced (3, 3);
-
-    socialButtons.setBounds (plotFrame.removeFromBottom (35));
 
     auto bandSpace = plotFrame.removeFromBottom (getHeight() / 2);
     auto width = juce::roundToInt (bandSpace.getWidth()) / (bandEditors.size() + 1);

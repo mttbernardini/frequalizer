@@ -8,7 +8,6 @@
 
 #include "Analyser.h"
 #include "FrequalizerProcessor.h"
-#include "SocialButtons.h"
 #include "FrequalizerEditor.h"
 
 

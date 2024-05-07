@@ -29,12 +29,8 @@ juce_add_plugin(frequalizer
 # add the sources
 target_sources(frequalizer
 	PRIVATE
-		src/Analyser.h
 		src/FrequalizerEditor.cpp
-		src/FrequalizerEditor.h
 		src/FrequalizerProcessor.cpp
-		src/FrequalizerProcessor.h
-		src/SocialButtons.h
 )
 
 # add required flags
@@ -53,7 +49,11 @@ target_compile_definitions(frequalizer
 	PUBLIC
 		JUCE_VST3_CAN_REPLACE_VST2=OFF
 		JUCE_WEB_BROWSER=OFF
-	)
+)
+set_target_properties(frequalizer
+	PROPERTIES
+		CXX_STANDARD 11
+)
 
 # setup the copying to the output folder
 set(COPY_FOLDER ${CMAKE_SOURCE_DIR}/dist)

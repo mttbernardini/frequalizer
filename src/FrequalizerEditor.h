@@ -112,8 +112,6 @@ private:
     juce::GroupComponent          frame;
     juce::Slider                  output { juce::Slider::RotaryHorizontalVerticalDrag, juce::Slider::TextBoxBelow };
 
-    SocialButtons                 socialButtons;
-
     int                           draggingBand = -1;
     bool                          draggingGain = false;
 
