@@ -55,8 +55,6 @@ jobs:
     steps:
     - name: Checkout to fetch tag annotation
       uses: actions/checkout@v4
-      with:
-        fetch-tags: true
 
     - name: Download binaries
       uses: actions/download-artifact@v4
