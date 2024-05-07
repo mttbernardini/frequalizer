@@ -26,8 +26,15 @@ juce_add_plugin(frequalizer
 )
 
 # add the sources
-add_subdirectory(Resources)
-add_subdirectory(Source)
+target_sources(frequalizer
+	PRIVATE
+		src/Analyser.h
+		src/FrequalizerEditor.cpp
+		src/FrequalizerEditor.h
+		src/FrequalizerProcessor.cpp
+		src/FrequalizerProcessor.h
+		src/SocialButtons.h
+)
 
 # add required flags
 target_link_libraries(frequalizer
