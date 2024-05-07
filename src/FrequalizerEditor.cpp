@@ -29,6 +29,10 @@ FrequalizerAudioProcessorEditor::FrequalizerAudioProcessorEditor (FrequalizerAud
     attachments.add (new juce::AudioProcessorValueTreeState::SliderAttachment (freqProcessor.getPluginState(), FrequalizerAudioProcessor::paramOutput, output));
     output.setTooltip (TRANS ("Overall Gain"));
 
+    credits.setText("v" JucePlugin_VersionString "\nteobe.net", juce::dontSendNotification);
+    credits.setJustificationType(juce::Justification::bottomRight);
+    addAndMakeVisible(credits);
+
     auto size = freqProcessor.getSavedSize();
     setResizable (true, true);
     setSize (size.x, size.y);
@@ -134,6 +138,8 @@ void FrequalizerAudioProcessorEditor::resized()
 
     plotFrame.reduce (3, 3);
     brandingFrame = bandSpace.reduced (5);
+
+    credits.setBounds(brandingFrame);
 
     updateFrequencyResponses();
 }

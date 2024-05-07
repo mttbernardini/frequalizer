@@ -111,6 +111,7 @@ private:
 
     juce::GroupComponent          frame;
     juce::Slider                  output { juce::Slider::RotaryHorizontalVerticalDrag, juce::Slider::TextBoxBelow };
+    juce::Label                   credits;
 
     int                           draggingBand = -1;
     bool                          draggingGain = false;
