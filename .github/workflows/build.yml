@@ -41,7 +41,7 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
-        path: dist/*
+        path: dist/
         name: built-plugins-${{ matrix.os }}
 
   release:
@@ -63,8 +63,6 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         body_path: changelog.md
-        files: |
-          *.vst3
-          *.component
+        files: dist/*
 
 
