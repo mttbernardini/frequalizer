@@ -53,7 +53,7 @@ public:
         audioFifo.setSize (1, audioFifoSize);
         abstractFifo.setTotalSize (audioFifoSize);
 
-        startThread (5);
+        startThread (Priority::low);
     }
 
     void run() override

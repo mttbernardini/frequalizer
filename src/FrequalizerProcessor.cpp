@@ -6,9 +6,7 @@
   ==============================================================================
 */
 
-#include "Analyser.h"
 #include "FrequalizerProcessor.h"
-#include "SocialButtons.h"
 #include "FrequalizerEditor.h"
 
 
@@ -50,7 +48,7 @@ int FrequalizerAudioProcessor::getBandIndexFromID (juce::String paramID)
     return -1;
 }
 
-std::vector<FrequalizerAudioProcessor::Band> createDefaultBands()
+static std::vector<FrequalizerAudioProcessor::Band> createDefaultBands()
 {
     std::vector<FrequalizerAudioProcessor::Band> defaults;
     defaults.push_back (FrequalizerAudioProcessor::Band (TRANS ("Lowest"),    juce::Colours::blue,   FrequalizerAudioProcessor::HighPass,    20.0f, 0.707f));
@@ -62,7 +60,7 @@ std::vector<FrequalizerAudioProcessor::Band> createDefaultBands()
     return defaults;
 }
 
-juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
+static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
 {
     std::vector<std::unique_ptr<juce::AudioProcessorParameterGroup>> params;
 
@@ -106,11 +104,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout()
 
         auto qltyParameter = std::make_unique<juce::AudioParameterFloat> (FrequalizerAudioProcessor::getQualityParamName (i),
                                                                     prefix + TRANS ("Quality"),
-                                                                    juce::NormalisableRange<float> {0.1f, 10.0f, 1.0f, std::log (0.5f) / std::log (0.9f / 9.9f)},
+                                                                    juce::NormalisableRange<float> {0.1f, 10.0f, 0.01f, std::log (0.5f) / std::log (0.9f / 9.9f)},
                                                                     defaults [i].quality,
                                                                     juce::String(),
                                                                     juce::AudioProcessorParameter::genericParameter,
-                                                                    [](float value, int) { return juce::String (value, 1); },
+                                                                    [](float value, int) { return juce::String (value, 2); },
                                                                     [](const juce::String& text) { return text.getFloatValue(); });
 
         auto gainParameter = std::make_unique<juce::AudioParameterFloat> (FrequalizerAudioProcessor::getGainParamName (i),

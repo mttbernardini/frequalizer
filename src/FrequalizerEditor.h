@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include "FrequalizerProcessor.h"
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_opengl/juce_opengl.h>
+#include "FrequalizerProcessor.h"
 
 
 //==============================================================================
@@ -111,8 +111,7 @@ private:
 
     juce::GroupComponent          frame;
     juce::Slider                  output { juce::Slider::RotaryHorizontalVerticalDrag, juce::Slider::TextBoxBelow };
-
-    SocialButtons                 socialButtons;
+    juce::Label                   credits;
 
     int                           draggingBand = -1;
     bool                          draggingGain = false;
