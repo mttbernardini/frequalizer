@@ -104,7 +104,7 @@ static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout
 
         auto qltyParameter = std::make_unique<juce::AudioParameterFloat> (FrequalizerAudioProcessor::getQualityParamName (i),
                                                                     prefix + TRANS ("Quality"),
-                                                                    juce::NormalisableRange<float> {0.1f, 10.0f, 1.0f, std::log (0.5f) / std::log (0.9f / 9.9f)},
+                                                                    juce::NormalisableRange<float> {0.1f, 10.0f, 0.01f, std::log (0.5f) / std::log (0.9f / 9.9f)},
                                                                     defaults [i].quality,
                                                                     juce::String(),
                                                                     juce::AudioProcessorParameter::genericParameter,
