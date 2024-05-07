@@ -55,6 +55,7 @@ jobs:
       with:
         pattern: built-plugins-*
         merge-multiple: true
+        path: dist/
 
     - name: Extract release notes
       run: git cat-file tag ${{ github.ref }} | tail -n +3 > changelog.md
