@@ -3,6 +3,8 @@ project(frequalizer VERSION 1.1.0)
 
 add_subdirectory(lib/JUCE)
 
+option(INSTALL_AFTER_BUILD "Automatically copy built plugins in system directories after build" OFF)
+
 # useful for linting (i.e. `clangd`)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -61,6 +63,10 @@ set_target_properties(frequalizer
 set(COPY_FOLDER ${CMAKE_SOURCE_DIR}/dist)
 
 foreach(FORMAT ${FORMATS})
-    get_target_property(ARTEFACTS_DIR frequalizer_${FORMAT} LIBRARY_OUTPUT_DIRECTORY)
-    add_custom_command(TARGET frequalizer_${FORMAT} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${ARTEFACTS_DIR} ${COPY_FOLDER})
+	get_target_property(ARTEFACTS_DIR frequalizer_${FORMAT} LIBRARY_OUTPUT_DIRECTORY)
+	add_custom_command(TARGET frequalizer_${FORMAT} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${ARTEFACTS_DIR} ${COPY_FOLDER})
 endforeach()
+
+if(INSTALL_AFTER_BUILD)
+	juce_enable_copy_plugin_step(frequalizer)
+endif()
